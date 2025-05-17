@@ -1,0 +1,8 @@
+    // Bildirim dinleyicilerini kur
+    private func setupNotifications() {
+        // İzlendi durumu değiştiğinde listeyi yenile
+        NotificationCenter.default.addObserver(self,
+                                             selector: #selector(videoWatchStatusChanged),
+                                             name: NSNotification.Name("VideoWatchStatusChanged"),
+                                             object: nil)
+    }

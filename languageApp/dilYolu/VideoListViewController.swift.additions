@@ -1,0 +1,31 @@
+// Bu metodu VideoListViewController sınıfına ekleyin
+private func loadVideosFromCache() {
+    // Önbellekten videoları yükle
+    VideoCacheManager.shared.loadVideosFromCache { [weak self] cachedVideos in
+        guard let self = self else { return }
+        if !cachedVideos.isEmpty {
+            self.videos = cachedVideos
+            self.updateDisplayedVideos()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+}
+
+// Bu metodu VideoListViewController sınıfına ekleyin
+@objc private func handleVideoListUpdated() {
+    updateDisplayedVideos()
+    DispatchQueue.main.async {
+        self.collectionView.reloadData()
+    }
+}
+
+// Bu metodu Config sınıfına ekleyin
+extension Config {
+    static func loadAPIKey(completion: @escaping (Bool) -> Void) {
+        // API anahtarını yükle veya yapılandırma dosyasından al
+        // Bu örnekte başarılı kabul ediyoruz
+        completion(true)
+    }
+}

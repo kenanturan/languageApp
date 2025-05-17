@@ -1,0 +1,425 @@
+import SwiftUI
+
+struct RememberedFlashcardView: View {
+    @State var words: [RememberedWord] // Orijinal kelime listesi
+    @State private var originalWordCount: Int = 0 // Orijinal kelime sayısı
+    @State private var displayIndices: [Int] = [] // Görüntülenecek kelimelerin indeksleri
+    @State private var leftSwipedIndices: [Int] = [] // Sola çekilen (bilinmeyen) kelimelerin indeksleri
+    @State private var rightSwipedIndices: Set<Int> = [] // Sağa çekilen (bilinen) kartların indeksleri
+    @State private var processedIndices: Set<Int> = [] // İşlem yapılmış (swipe edilmiş) kartların indeksleri
+    @State private var reviewMode: Bool = false // False: Normal mod, True: Tekrar öğrenme modu
+    @State private var viewedCount: Int = 0 // Görüntülenen kelime sayısı
+    @State private var currentIndex = 0 // Şu anki dizin
+    @State private var showTranslation = false
+    @State private var dragOffset: CGSize = .zero
+    @State private var cardOpacity: Double = 1.0
+    @Environment(\.presentationMode) var presentationMode
+    
+    // Kullanıcı tercihlerini kaydetmek için key'ler
+    private let lastIndexKey = "flashcardLastIndex"
+    private let lastViewedCountKey = "flashcardLastViewedCount"
+    private let leftSwipedKey = "flashcardLeftSwiped"
+    private let reviewModeKey = "flashcardReviewMode"
+    private let processedKey = "flashcardProcessedIndices"
+    private let rightSwipedKey = "flashcardRightSwipedIndices"
+    
+    // View yüklendiğinde çalışacak init fonksiyonu
+    init(words: [RememberedWord]) {
+        self._words = State(initialValue: words)
+        self._originalWordCount = State(initialValue: words.count)
+        self._displayIndices = State(initialValue: Array(0..<words.count))
+        
+        // Boş kelime listesi için kontrol
+        if words.isEmpty {
+            return
+        }
+        
+        // Kaydedilen durumu al
+        let savedIndex = UserDefaults.standard.integer(forKey: lastIndexKey)
+        let savedViewedCount = UserDefaults.standard.integer(forKey: lastViewedCountKey)
+        let savedReviewMode = UserDefaults.standard.bool(forKey: reviewModeKey)
+        
+        // Sola çekilen (bilinmeyen) kelimeler
+        if let savedLeftSwiped = UserDefaults.standard.array(forKey: leftSwipedKey) as? [Int] {
+            self._leftSwipedIndices = State(initialValue: savedLeftSwiped)
+        }
+        
+        // İşlem yapılmış (swipe edilmiş) kartlar
+        if let savedProcessed = UserDefaults.standard.array(forKey: processedKey) as? [Int] {
+            self._processedIndices = State(initialValue: Set(savedProcessed))
+        }
+        
+        // Sağa çekilmiş (bilinen) kartlar
+        if let savedRightSwiped = UserDefaults.standard.array(forKey: rightSwipedKey) as? [Int] {
+            self._rightSwipedIndices = State(initialValue: Set(savedRightSwiped))
+        }
+        
+        // Review modunu ayarla
+        self._reviewMode = State(initialValue: savedReviewMode)
+        
+        // Kaydedilen değerler geçerli mi kontrol et
+        if savedIndex < words.count {
+            self._currentIndex = State(initialValue: savedIndex)
+            self._viewedCount = State(initialValue: savedViewedCount)
+            print("Flashcard: Kaldığınız indeks yüklendi: \(savedIndex), görüntülenen: \(savedViewedCount), tekrar modu: \(savedReviewMode)")
+        } else {
+            print("Flashcard: Geçersiz kaydedilmiş indeks: \(savedIndex), sıfırlanıyor")
+            // Geçersiz indeks, sıfırla
+            resetUserDefaults()
+        }
+    }
+    
+    // UserDefaults'u sıfırla
+    private func resetUserDefaults() {
+        UserDefaults.standard.set(0, forKey: lastIndexKey)
+        UserDefaults.standard.set(0, forKey: lastViewedCountKey)
+        UserDefaults.standard.set(false, forKey: reviewModeKey)
+        UserDefaults.standard.set([], forKey: leftSwipedKey)
+        UserDefaults.standard.set([], forKey: processedKey)
+        UserDefaults.standard.set([], forKey: rightSwipedKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    // İlerlemeyi kaydet
+    private func saveProgress() {
+        UserDefaults.standard.set(currentIndex, forKey: lastIndexKey)
+        UserDefaults.standard.set(viewedCount, forKey: lastViewedCountKey)
+        UserDefaults.standard.set(reviewMode, forKey: reviewModeKey)
+        UserDefaults.standard.set(leftSwipedIndices, forKey: leftSwipedKey)
+        UserDefaults.standard.set(Array(processedIndices), forKey: processedKey)
+        UserDefaults.standard.set(Array(rightSwipedIndices), forKey: rightSwipedKey)
+        UserDefaults.standard.synchronize()
+        print("Flashcard: İlerleme kaydedildi - index: \(currentIndex), görüntülenen: \(viewedCount), tekrar modu: \(reviewMode), sağa çekilen: \(rightSwipedIndices.count)/\(originalWordCount)")
+    }
+    
+    var body: some View {
+        VStack(spacing: 32) {
+            VStack(spacing: 4) {
+                Text("\(min(viewedCount+1, originalWordCount)) / \(originalWordCount)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                if reviewMode {
+                    Text(NSLocalizedString("review_mode", comment: "Review mode"))
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.orange)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(Color.orange.opacity(0.2))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                        )
+                }
+            }
+            Spacer()
+            ZStack {
+                // Gelişmiş kart arka planı
+                ZStack {
+                    // Daha estetik arka plan gradyan
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color(.systemBackground),
+                            Color(.systemBackground).opacity(0.9),
+                            Color(.systemBackground).opacity(0.8)
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                    .shadow(color: Color(.systemBlue).opacity(0.15), radius: 15, x: 0, y: 5)
+                    
+                    // İç çerçeve
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .stroke(LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color(.systemGray4),
+                                Color(.systemGray3)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ), lineWidth: 1.5)
+                    
+                    // Hafif parlama efekti
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.white.opacity(0.1),
+                                Color.clear
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .center
+                        ))
+                }
+                // Sola çekince kırmızı çarpı
+                ZStack {
+                    Circle()
+                        .fill(Color(.systemBackground))
+                        .frame(width: 80, height: 80)
+                        .shadow(color: Color(.systemRed).opacity(0.3), radius: 10, x: 0, y: 0)
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 70))
+                        .foregroundColor(.red)
+                }
+                .opacity(dragOffset.width < -20 ? min(Double(-dragOffset.width / 30), 1.0) : 0)
+                .offset(x: -80, y: 0)
+                // Sağa çekince yeşil tik
+                ZStack {
+                    Circle()
+                        .fill(Color(.systemBackground))
+                        .frame(width: 80, height: 80)
+                        .shadow(color: Color(.systemGreen).opacity(0.3), radius: 10, x: 0, y: 0)
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 70))
+                        .foregroundColor(.green)
+                }
+                .opacity(dragOffset.width > 20 ? min(Double(dragOffset.width / 30), 1.0) : 0)
+                .offset(x: 80, y: 0)
+                Text(showTranslation ? 
+                     (reviewMode ? words[leftSwipedIndices[currentIndex]].translation ?? "" : words[displayIndices[currentIndex]].translation ?? "") : 
+                     (reviewMode ? words[leftSwipedIndices[currentIndex]].word ?? "" : words[displayIndices[currentIndex]].word ?? ""))
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .shadow(color: Color(.label).opacity(0.15), radius: 2, x: 0, y: 1)
+                    .scaleEffect(dragOffset == .zero ? 1.0 : 0.95) // Çekerken küçült
+                    .animation(.spring(response: 0.4, dampingFraction: 0.8), value: dragOffset)
+            }
+            .frame(height: 200)
+            .padding(.horizontal, 20)
+            .offset(dragOffset)
+            .rotationEffect(.degrees(Double(dragOffset.width) / 18))
+            .opacity(cardOpacity)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        dragOffset = value.translation
+                        // Kart uzaklaştıkça şeffaflaşsın
+                        let distance = sqrt(pow(dragOffset.width, 2) + pow(dragOffset.height, 2))
+                        cardOpacity = Double(1.0 - min(distance / 250, 0.6))
+                    }
+                    .onEnded { value in
+                        let threshold: CGFloat = 120
+                        let distance = sqrt(pow(dragOffset.width, 2) + pow(dragOffset.height, 2))
+                        if distance > threshold {
+                            // Kartı fırlat (yön fark etmez)
+                            let direction = CGSize(width: dragOffset.width * 3, height: dragOffset.height * 3)
+                            withAnimation(.spring()) {
+                                dragOffset = direction
+                                cardOpacity = 0
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.22) {
+                                // Şu anki kartı işlenmiş olarak işaretle
+                                if !reviewMode {
+                                    let currentWordIndex = displayIndices[currentIndex]
+                                    processedIndices.insert(currentWordIndex)
+                                    
+                                    if dragOffset.width > 0 {
+                                        // Sağa çekildi (biliyorum)
+                                        rightSwipedIndices.insert(currentWordIndex)
+                                        print("Flashcard: Kart sağa çekildi (biliyorum), toplam sağa çekilen: \(rightSwipedIndices.count)/\(originalWordCount)")
+                                    } else if dragOffset.width < 0 {
+                                        // Sola çekildi (bilmiyorum) - tekrar öğrenme listesine ekle
+                                        if !leftSwipedIndices.contains(currentWordIndex) {
+                                            leftSwipedIndices.append(currentWordIndex)
+                                            print("Flashcard: Kelime tekrar listesine eklendi: \(currentWordIndex)")
+                                        }
+                                        
+                                        // Sola çekilen bir kart daha önce sağa çekilmişse, sağa çekilenlerden çıkar
+                                        if rightSwipedIndices.contains(currentWordIndex) {
+                                            rightSwipedIndices.remove(currentWordIndex)
+                                            print("Flashcard: Kart tekrar bilinmiyor olarak işaretlendi")
+                                        }
+                                    }
+                                } else if reviewMode && dragOffset.width > 0 {
+                                    // Tekrar modunda sağa çekilen kartları sağa çekilmiş olarak işaretle
+                                    let reviewWordIndex = leftSwipedIndices[currentIndex]
+                                    rightSwipedIndices.insert(reviewWordIndex)
+                                    print("Flashcard: Tekrar kartı sağa çekildi, sağa çekilen toplam: \(rightSwipedIndices.count)/\(originalWordCount)")
+                                }
+                                
+                                viewedCount += 1
+                                
+                                if !reviewMode {
+                                    // NORMAL MOD: Orijinal kelimelerdeyiz
+                                    
+                                    // Sonraki indekse geç
+                                    if currentIndex < displayIndices.count - 1 {
+                                        currentIndex += 1
+                                    } else {
+                                        // Tüm kartları gezmiş olabiliriz, ama her biri için işlem yapılmış mı kontrol et
+                                        currentIndex = 0
+                                    }
+                                    
+                                    // Tüm kartlar sağa çekildi mi kontrol et
+                                    if rightSwipedIndices.count >= originalWordCount {
+                                        // Tüm kartlar sağa çekildi, yani tümü biliniyor
+                                        if !leftSwipedIndices.isEmpty {
+                                            // Tekrar öğrenilecek kelimeler varsa, review moduna geç
+                                            // Bu durum muhtemelen gerçekleşmeyecek, çünkü tüm kartlar sağa çekildiyse leftSwipedIndices boş olmalı
+                                            // Ama yine de kontrol edelim
+                                            reviewMode = true
+                                            currentIndex = 0
+                                            viewedCount = 0
+                                            print("Flashcard: Tüm kartlar sağa çekildi (tümü biliniyor), tekrar moduna geçiliyor: \(leftSwipedIndices.count) kelime")
+                                        } else {
+                                            // Tekrar öğrenilecek kelime yoksa başa dön
+                                            currentIndex = 0
+                                            viewedCount = 0
+                                            // İşlenmiş ve sağa çekilmiş kartları sıfırla
+                                            processedIndices.removeAll()
+                                            rightSwipedIndices.removeAll()
+                                            print("Flashcard: Tüm kartlar sağa çekildi, başa dönülüyor")
+                                        }
+                                    } else {
+                                        // Tüm kartlar işlendi ama hepsi sağa çekilmedi
+                                        if processedIndices.count >= originalWordCount {
+                                            // Tüm kartlar görüldü ama bir kısmı sola çekildi (bilinmiyor)
+                                            if !leftSwipedIndices.isEmpty {
+                                                // Tekrar öğrenilecek kelimeler varsa, review moduna geç
+                                                reviewMode = true
+                                                currentIndex = 0
+                                                viewedCount = 0
+                                                print("Flashcard: Tüm kartlar işlendi, ama sadece \(rightSwipedIndices.count)/\(originalWordCount) kart biliniyor. Tekrar moduna geçiliyor, \(leftSwipedIndices.count) kelime tekrar gösterilecek")
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    // TEKRAR MODU: Sola çekilen (bilinmeyen) kelimelerdeyiz
+                                    if currentIndex < leftSwipedIndices.count - 1 {
+                                        // Daha gösterilecek tekrar kelimeleri var
+                                        currentIndex += 1
+                                    } else {
+                                        // Tüm tekrar kartları son karta kadar gösterildi
+                                        // Bu aşamada iki durum olabilir:
+                                        // 1. Tüm tekrar kartları sağa çekildi (bilindi) - başa dön
+                                        // 2. Bazı kartlar hala sağa çekilmedi - tekrar modunu sıfırla ama kartları koru
+                                        
+                                        // Bu yineleme için tüm kelimelerden kaçı biliniyor (sağa çekildi)
+                                        let knownWords = rightSwipedIndices.count
+                                        
+                                        // Bu tekrar turunda kaç kelime sağa çekilmedi
+                                        let unknownWordsInReview = leftSwipedIndices.filter { !rightSwipedIndices.contains($0) }.count
+                                        
+                                        if unknownWordsInReview == 0 {
+                                            // Tüm tekrar kelimeleri sağa çekildi, başa dön ve normal moda geç
+                                            reviewMode = false
+                                            currentIndex = 0
+                                            viewedCount = 0
+                                            leftSwipedIndices = []
+                                            processedIndices.removeAll()
+                                            rightSwipedIndices.removeAll()
+                                            print("Flashcard: Tekrar kelimelerin tümü sağa çekildi. Tüm kelimeler öğrenildi, başa dönülüyor")
+                                        } else {
+                                            // Hala bilinmeyen tekrar kelimeleri var, tekrar moduna devam et
+                                            // ama listeyi sadece bilinmeyen kelimelere güncelle
+                                            let remainingWords = leftSwipedIndices.filter { !rightSwipedIndices.contains($0) }
+                                            leftSwipedIndices = remainingWords
+                                            currentIndex = 0
+                                            viewedCount = 0
+                                            print("Flashcard: Tekrar kelimelerin sadece \(knownWords)/\(knownWords + unknownWordsInReview) sağa çekildi. \(unknownWordsInReview) kelime hala bilinmiyor, tekrar moduna devam ediliyor.")
+                                        }
+                                    }
+                                }
+                                
+                                // İlerlemeyi kaydet
+                                saveProgress()
+                                showTranslation = false
+                                dragOffset = .zero
+                                cardOpacity = 1.0
+                            }
+                        } else {
+                            // Yeterince çekilmedi, eski yerine dön
+                            withAnimation(.spring()) {
+                                dragOffset = .zero
+                                cardOpacity = 1.0
+                            }
+                        }
+                    }
+            )
+            .onTapGesture {
+                withAnimation {
+                    showTranslation.toggle()
+                }
+            }
+            Spacer()
+
+            HStack(spacing: 24) {
+                Button(action: {
+                    // Başa dön butonuna basıldığında ilk karta dön ve tüm durumu sıfırla
+                    withAnimation {
+                        currentIndex = 0
+                        viewedCount = 0
+                        showTranslation = false
+                        reviewMode = false
+                        leftSwipedIndices = []
+                        processedIndices.removeAll()
+                        rightSwipedIndices.removeAll()
+                        // Tüm kaydedilen durumu sıfırla
+                        resetUserDefaults()
+                        print("Flashcard: Başa dön butonuna basıldı, ilerleme sıfırlandı")
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(NSLocalizedString("restart", comment: "Restart button"))
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    }
+                    .frame(height: 48)
+                    .frame(minWidth: 120)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.green.opacity(0.8), Color.green]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .foregroundColor(.white)
+                    .cornerRadius(16)
+                    .shadow(color: Color.green.opacity(0.4), radius: 5, x: 0, y: 3)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+                }
+                
+                Button {
+                    // Kapanırken ilerlemeyi kaydet
+                    saveProgress()
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(NSLocalizedString("close", comment: "Close button"))
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    }
+                    .frame(height: 48)
+                    .frame(minWidth: 120)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .foregroundColor(.white)
+                    .cornerRadius(16)
+                    .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 0, y: 3)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+                }
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 20)
+        }
+        .padding()
+    }
+}
