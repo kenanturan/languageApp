@@ -190,6 +190,9 @@ class VideoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Video izleme durumu değiştiğinde bildirim için observer ekle
+        NotificationCenter.default.addObserver(self, selector: #selector(handleVideoWatchStatusChanged), name: NSNotification.Name("VideoWatchStatusChanged"), object: nil)
+        
         // Önce tüm videoların yüklendiğinden ve sıralandığından emin ol
         if !isLoadingCompletedForFirstTime {
             showLoadingScreen()
@@ -223,6 +226,33 @@ class VideoListViewController: UIViewController {
         updateDisplayedVideos()
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+        }
+    }
+    
+    // Video kontrollerini temizle
+    deinit {
+        // Bildirim gözlemcisini kaldır
+        NotificationCenter.default.removeObserver(self)
+        print("[VideoList] VideoListViewController deinit çağrıldı, gözlemciler kaldırıldı")
+    }
+    
+    // Video izleme durumu değiştiğinde çağrılacak metot
+    @objc private func handleVideoWatchStatusChanged() {
+        print("[VideoList] Video izleme durumu değişti, UI güncelleniyor")
+        updateDisplayedVideos()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            
+            // Eğer tüm videoları gizleme aktifse ve hiç video kalmadıysa boş ekranı göster
+            if self.displayedVideos.isEmpty && self.hideWatchedVideos {
+                let emptyView = self.createEmptyStateView()
+                self.collectionView.backgroundView = emptyView
+            } else {
+                self.collectionView.backgroundView = nil
+            }
+            
+            // Ok butonlarını ve sayfa kontrolünü güncelle
+            self.updateArrowButtons()
         }
     }
     
