@@ -1,62 +1,114 @@
+// Navegação Geral e Botões
 "videos_loading" = "Carregando vídeos...";
 "tab_videos" = "Vídeos";
 "tab_words" = "Palavras";
 "tab_goals" = "Metas";
 "show_all" = "Mostrar tudo";
+"videos" = "Vídeos";
+"words" = "Palavras";
+"goals" = "Metas";
 "hide_watched" = "Ocultar assistidos";
 "hide_completed" = "Ocultar concluídos";
 "done" = "Concluído";
 "cancel" = "Cancelar";
 "add_goal" = "Adicionar meta";
+"delete_goal" = "Excluir meta";
+"delete_goal_confirm" = "Tem certeza de que deseja excluir esta meta?";
+"confirm_delete" = "Sim, excluir";
+"ok" = "OK";
+
+// Metas e Calendário
 "calendar" = "Calendário";
-"no_goal_added" = "Nenhuma meta adicionada ainda.";
-"all_goals_completed" = "Todas as metas concluídas!";
-"motivation_message" = "O caminho para o sucesso começa com a definição de metas!";
-"see_other_goals" = "Toque em 'Mostrar tudo' para ver outras metas.";
 "daily_stats" = "Estatísticas diárias";
-"create_new_goal" = "Criar nova meta";
-"track_progress" = "Acompanhe seu progresso definindo metas";
-"goal_type" = "Tipo de meta";
+"select_date" = "Selecionar Data";
 "video_watching" = "Assistir vídeos";
 "word_memorization" = "Memorização de palavras";
-"goal_count" = "Quantidade de metas";
-"goal_period" = "Período da meta";
-"daily" = "Diário";
-"weekly" = "Semanal";
-"monthly" = "Mensal";
 "deadline" = "Prazo: %@";
 "goal" = "Meta: %d";
 "progress" = "Progresso: %d%%";
 "watched" = "Assistido: %d";
 "memorized" = "Memorizado: %d";
 "remaining" = "Restante: %d";
+"remaining_count" = "Restante: %d / %d";
+"no_goal_added" = "Nenhuma meta adicionada ainda.";
+"all_goals_completed" = "Todas as metas concluídas!";
+"motivation_message" = "O caminho para o sucesso começa com a definição de metas!";
+"see_other_goals" = "Toque em 'Mostrar tudo' para ver outras metas.";
+"create_new_goal" = "Criar nova meta";
+"track_progress" = "Acompanhe seu progresso definindo metas";
+"goal_type" = "Tipo de meta";
+"goal_count" = "Quantidade de metas";
+"goal_period" = "Período da meta";
+"daily" = "Diário";
+"weekly" = "Semanal";
+"monthly" = "Mensal";
+"goal_plan" = "Acompanhe seu progresso diário, semanal ou mensal";
 "video_goal" = "%d meta de assistir vídeos";
 "word_goal" = "%d meta de memorização de palavras";
 "congrats_video_goal" = "Parabéns! Você atingiu a meta de assistir %d vídeos! 🎉";
 "congrats_word_goal" = "Parabéns! Você atingiu a meta de memorizar %d palavras! 🎉";
 "goal_reached" = "Meta alcançada!";
 "warning" = "Aviso";
+"error" = "Erro";
+"completion_title" = "Parabéns! 🎉";
+"completion_message" = "Você memorizou todas as palavras!";
+"attention" = "Atenção";
+
+// Memorização de Palavras e Cartões
+"review_mode" = "Modo de revisão";
+"restart" = "Reiniciar";
+"close" = "Fechar";
 "total_memorized" = "Total memorizado: %d";
+"total_goal" = "Metas totais: %d";
+"watched_video" = "Vídeos assistidos: %d";
+"memorized_word" = "Palavras memorizadas: %d";
 "no_memorized_word" = "Ainda não há palavras memorizadas";
+"no_word_found" = "Nenhuma palavra encontrada";
 "memorize_info" = "Para memorizar palavras, clique no botão 'Cartões de palavras' enquanto assiste a um vídeo e estude as palavras.";
 "study_words" = "Estudar palavras";
 "delete_word" = "Excluir palavra";
 "delete_word_confirm" = "Tem certeza de que deseja excluir esta palavra?";
 "delete" = "Excluir";
+"word_cards" = "Cartões de palavras";
+"word_cards_loading_title" = "Informação";
+"word_cards_loading_message" = "Os cartões de palavras não podem ser carregados no momento. Nosso conteúdo estará disponível em todos os idiomas em breve. Obrigado pela sua compreensão.";
+
+// Visualização de Vídeos
 "video_title" = "%d.Vídeo";
 "not_watched" = "Não assistido";
 "watched_status" = "Assistido";
-"word_cards" = "Cartões de palavras";
 "all_videos_watched" = "Todos os vídeos assistidos";
 "show_all_videos_info" = "Toque em 'Mostrar tudo' para ver mais vídeos";
-"select_date" = "Selecionar Data";
-"attention" = "Atenção";
+
+// Títulos de Notificações
+"morning_notification_title" = "Bom dia! ☀️";
+"noon_notification_title" = "Hora do almoço 🕐";
+"evening_notification_title" = "Boa noite! 🌙";
+"motivation_time" = "Hora da motivação! 💪";
+"thanks" = "Obrigado!";
+"default_motivation" = "Continue aprendendo idiomas! A constância traz sucesso.";
+
+// Mensagens de Motivação Matinais
+"morning_motivation_1" = "Começar o dia aprendendo um idioma é um ótimo passo! Vamos tentar aprender três novas palavras hoje.";
+"morning_motivation_2" = "Bom dia! Dedicar um pouco de tempo aprendendo um idioma todos os dias leva a grandes melhorias.";
+"morning_motivation_3" = "Adicionar 10 minutos de estudo de idiomas à sua rotina matinal ativa seu cérebro!";
+"morning_motivation_4" = "Faça do aprendizado de idiomas uma prioridade ao começar um novo dia. O segredo é a prática regular!";
+"morning_motivation_5" = "Aprenda um idioma com a energia do dia! Mesmo 5 minutos fazem diferença hoje.";
+
+// Mensagens de Motivação do Meio-dia
+"noon_motivation_1" = "Hora do almoço? Que tal estudar algumas palavras rapidamente?";
+"noon_motivation_2" = "Dedique sua pausa mental no meio do dia ao aprendizado de idiomas! Mesmo 5 minutos são importantes.";
+"noon_motivation_3" = "Quanto progresso você fez hoje? Revise rapidamente algumas palavras!";
+"noon_motivation_4" = "A hora do almoço é tempo de produtividade! Aprender algumas palavras adiciona energia ao resto do seu dia.";
+"noon_motivation_5" = "Praticar seu idioma um pouco todos os dias te torna melhor que ontem.";
+
+// Mensagens de Motivação Noturnas
+"evening_motivation_1" = "Terminar o dia aprendendo um idioma ajuda você a começar amanhã mais preparado!";
+"evening_motivation_2" = "Seu cérebro consolidará essas informações até amanhã de manhã. Vamos estudar mais algumas palavras!";
+"evening_motivation_3" = "Estudar por 10 minutos antes de dormir acelera o processo de aprendizado de idiomas.";
+"evening_motivation_4" = "Reforçe o que você aprendeu hoje! Você pode fazer uma revisão rápida antes de ir para a cama.";
+"evening_motivation_5" = "Aprender um idioma à noite relaxa sua mente e ajuda você a dormir melhor. Que tal dedicar alguns minutos?";
+
+// Idioma e Localização
 "restart_required" = "Você precisa reiniciar o aplicativo para alterar o idioma.";
-"ok" = "OK";
-"show_all" = "Mostrar tudo";
-"videos" = "Vídeos";
-"words" = "Palavras";
-"goals" = "Metas";
-"total_goal" = "Metas totais: %d";
-"watched_video" = "Vídeos assistidos: %d";
-"memorized_word" = "Palavras memorizadas: %d";
+"language_changed" = "Idioma alterado com sucesso.";

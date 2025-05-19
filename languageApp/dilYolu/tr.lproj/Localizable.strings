@@ -15,6 +15,7 @@
 "delete_goal" = "Hedefi Sil";
 "delete_goal_confirm" = "Bu hedefi silmek istediğinize emin misiniz?";
 "confirm_delete" = "Evet, Sil";
+"ok" = "Tamam";
 
 // Hedefler ve Takvim
 "calendar" = "Takvim";
@@ -33,24 +34,15 @@
 "all_goals_completed" = "Tüm hedefler tamamlandı!";
 "motivation_message" = "Başarıya giden yol hedefler belirlemekle başlar!";
 "see_other_goals" = "Diğer hedefleri görmek için 'Hepsini Göster' butonuna dokunabilirsiniz.";
-"daily_stats" = "Günlük İstatistikler";
 "create_new_goal" = "Yeni Hedef Oluştur";
 "track_progress" = "Hedefler belirleyerek ilerlemenizi takip edin";
 "goal_type" = "Hedef Türü";
-"video_watching" = "Video İzleme";
-"word_memorization" = "Kelime Ezberleme";
 "goal_count" = "Hedef Sayısı";
 "goal_period" = "Hedef Süresi";
 "daily" = "Günlük";
 "weekly" = "Haftalık";
 "monthly" = "Aylık";
 "goal_plan" = "Günlük, haftalık veya aylık olarak ilerlemenizi takip edin";
-"deadline" = "Son tarih: %@";
-"goal" = "Hedef: %d";
-"progress" = "İlerleme: %d%%";
-"watched" = "İzlenen: %d";
-"memorized" = "Ezberlenen: %d";
-"remaining" = "Kalan: %d";
 "video_goal" = "%d Video İzleme Hedefi";
 "word_goal" = "%d Kelime Ezberleme Hedefi";
 "congrats_video_goal" = "Tebrikler! %d Video İzleme Hedefine Ulaştın! 🎉";
@@ -60,6 +52,33 @@
 "error" = "Hata";
 "completion_title" = "Tebrikler! 🎉";
 "completion_message" = "Tüm kelimeleri ezberlediniz!";
+"attention" = "Dikkat";
+
+// Kelime Ezberleme ve Flashcard
+"review_mode" = "Tekrar Modu";
+"restart" = "Başa Dön";
+"close" = "Kapat";
+"total_memorized" = "Toplam Ezberlenen: %d";
+"total_goal" = "Toplam Hedef: %d";
+"watched_video" = "İzlenen Video: %d";
+"memorized_word" = "Ezberlenen Kelime: %d";
+"no_memorized_word" = "Henüz Ezberlenen Kelime Yok";
+"no_word_found" = "Kelime bulunamadı";
+"memorize_info" = "Kelime ezberlemek için video izlerken 'Kelime Kartları' butonuna tıklayabilir ve kelimeleri çalışabilirsin.";
+"study_words" = "Kelimeleri Çalış";
+"delete_word" = "Kelimeyi Sil";
+"delete_word_confirm" = "Bu kelimeyi silmek istediğine emin misin?";
+"delete" = "Sil";
+"word_cards" = "Kelime Kartları";
+"word_cards_loading_title" = "Bilgilendirme";
+"word_cards_loading_message" = "Kelime kartları şu anda yüklenemiyor. İçeriklerimiz en kısa sürede tüm dillerde kullanıma sunulacaktır. Anlayışınız için teşekkür ederiz.";
+
+// Video İzleme
+"video_title" = "%d.Video";
+"not_watched" = "İzlenmedi";
+"watched_status" = "İzlendi";
+"all_videos_watched" = "Tüm videolar izlendi";
+"show_all_videos_info" = "Başka video görmek için 'Hepsini Göster' butonuna dokunun";
 
 // Bildirim Başlıkları
 "morning_notification_title" = "Günaydın! ☀️";
@@ -90,39 +109,6 @@
 "evening_motivation_4" = "Bugün öğrendiklerini pekiştir! Yatmadan önce kısa bir tekrar yapabilirsin.";
 "evening_motivation_5" = "Akşam dil öğrenmek zihnini rahatlatır ve daha iyi uyumana yardımcı olur. Birkaç dakika ayırmaya ne dersin?";
 
-// Kelime Ezberleme ve Flashcard
-"review_mode" = "Tekrar Modu";
-"restart" = "Başa Dön";
-"close" = "Kapat";
-"total_memorized" = "Toplam Ezberlenen: %d";
-"total_goal" = "Toplam Hedef: %d";
-"watched_video" = "İzlenen Video: %d";
-"memorized_word" = "Ezberlenen Kelime: %d";
-"no_memorized_word" = "Henüz Ezberlenen Kelime Yok";
-"no_word_found" = "Kelime bulunamadı";
-"memorize_info" = "Kelime ezberlemek için video izlerken 'Kelime Kartları' butonuna tıklayabilir ve kelimeleri çalışabilirsin.";
-"study_words" = "Kelimeleri Çalış";
-"delete_word" = "Kelimeyi Sil";
-"delete_word_confirm" = "Bu kelimeyi silmek istediğine emin misin?";
-"delete" = "Sil";
-"word_cards" = "Kelime Kartları";
-"word_cards_loading_title" = "Bilgilendirme";
-"word_cards_loading_message" = "Kelime kartları şu anda yüklenemiyor. İçeriklerimiz en kısa sürede tüm dillerde kullanıma sunulacaktır. Anlayışınız için teşekkür ederiz.";
-
-// Video İzleme
-"video_title" = "%d.Video";
-"not_watched" = "İzlenmedi";
-"watched_status" = "İzlendi";
-"word_cards" = "Kelime Kartları";
-"all_videos_watched" = "Tüm videolar izlendi";
-"show_all_videos_info" = "Başka video görmek için 'Hepsini Göster' butonuna dokunun";
-
 // Dil ve Yerelleştirme
 "restart_required" = "Dilin değişmesi için uygulamayı yeniden başlatmanız gerekiyor.";
 "language_changed" = "Dil başarıyla değiştirildi.";
-
-// Diğer
-"select_date" = "Tarih Seç";
-"attention" = "Dikkat";
-"ok" = "Tamam";
-"hide_completed" = "Tamamlananları Gizle";

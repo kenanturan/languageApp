@@ -1,19 +1,37 @@
+// 导航与通用按钮
 "videos_loading" = "正在加载视频...";
 "tab_videos" = "视频";
 "tab_words" = "单词";
 "tab_goals" = "目标";
 "show_all" = "显示全部";
+"videos" = "视频";
+"words" = "单词";
+"goals" = "目标";
 "hide_watched" = "隐藏已观看";
 "hide_completed" = "隐藏已完成";
 "done" = "完成";
 "cancel" = "取消";
 "add_goal" = "添加目标";
+"delete_goal" = "删除目标";
+"delete_goal_confirm" = "您确定要删除该目标吗？";
+"confirm_delete" = "是的，删除";
+"delete" = "删除";
+"accept" = "接受";
+"ok" = "确定";
+"restart" = "重新开始";
+"close" = "关闭";
+"error" = "错误";
+"warning" = "警告";
+"attention" = "注意";
+
+// 目标与进度跟踪
 "calendar" = "日历";
+"daily_stats" = "每日统计";
+"select_date" = "选择日期";
 "no_goal_added" = "尚未添加目标。";
 "all_goals_completed" = "所有目标已完成！";
 "motivation_message" = "成功之路始于设定目标！";
 "see_other_goals" = "点击“显示全部”查看更多目标。";
-"daily_stats" = "每日统计";
 "create_new_goal" = "创建新目标";
 "track_progress" = "通过设定目标跟踪进度";
 "goal_type" = "目标类型";
@@ -24,6 +42,7 @@
 "daily" = "每日";
 "weekly" = "每周";
 "monthly" = "每月";
+"goal_plan" = "每日、每周或每月跟踪您的进度";
 "deadline" = "截止日期：%@";
 "goal" = "目标：%d";
 "progress" = "进度：%d%%";
@@ -36,33 +55,61 @@
 "congrats_video_goal" = "恭喜！你已达成观看%d个视频的目标！🎉";
 "congrats_word_goal" = "恭喜！你已达成记忆%d个单词的目标！🎉";
 "goal_reached" = "目标达成！";
-"warning" = "警告";
+"total_goal" = "总目标：%d";
+"watched_video" = "已观看视频：%d";
+"memorized_word" = "已记忆单词：%d";
+"completion_title" = "恭喜！🎉";
+"completion_message" = "您已记忆所有单词！";
+
+// 单词学习
 "total_memorized" = "已记忆总数：%d";
 "no_memorized_word" = "还没有记忆的单词";
+"no_word_found" = "未找到单词";
 "memorize_info" = "如需记忆单词，请在观看视频时点击“单词卡片”按钮并学习单词。";
 "study_words" = "学习单词";
 "delete_word" = "删除单词";
 "delete_word_confirm" = "你确定要删除这个单词吗？";
-"delete" = "删除";
-"accept" = "接受";
-"video_title" = "%d.视频";
-"not_watched" = "未观看";
-"watched_status" = "已观看";
 "word_cards" = "单词卡片";
 "word_cards_loading_title" = "信息";
 "word_cards_loading_message" = "目前无法加载单词卡片。我们的内容将很快在所有语言中提供。感谢您的理解。";
+"review_mode" = "复习模式";
+
+// 视频观看
+"video_title" = "%d.视频";
+"not_watched" = "未观看";
+"watched_status" = "已观看";
 "all_videos_watched" = "所有视频已观看";
 "show_all_videos_info" = "点击“显示全部”查看更多视频";
-"select_date" = "选择日期";
-"attention" = "注意";
+
+// 通知标题
+"morning_notification_title" = "早上好！☀️";
+"noon_notification_title" = "午餐时间🕐";
+"evening_notification_title" = "晚上好！🌙";
+"motivation_time" = "动力时间！💪";
+"thanks" = "谢谢！";
+"default_motivation" = "继续学习语言！坡持将带来成功。";
+
+// 早上动力信息
+"morning_motivation_1" = "从语言学习开始一天是个好习惯！让我们今天尝试学习三个新单词。";
+"morning_motivation_2" = "早上好！每天学习一点语言也会带来巨大进步。";
+"morning_motivation_3" = "在早晨的你的日常添加10分钟的语言学习激活你的大脑！";
+"morning_motivation_4" = "在新的一天开始时将语言学习放在首位。秘诀在于定期练习！";
+"morning_motivation_5" = "用早晨的能量学习语言！今天的五分钟也是有价值的。";
+
+// 午餐时间动力信息
+"noon_motivation_1" = "午餐时间？快速学习几个单词如何？";
+"noon_motivation_2" = "利用中午时间学习语言！即使只有5分钟也是很重要的。";
+"noon_motivation_3" = "你今天取得了什么进步？快速复习一些单词！";
+"noon_motivation_4" = "午餐时间是高效的时候！学习一些单词将为一天的下半场添加能量。";
+"noon_motivation_5" = "每天的语言练习会让你变得比昨天更好。";
+
+// 晚上动力信息
+"evening_motivation_1" = "用语言学习结束一天，你会为明天做好准备！";
+"evening_motivation_2" = "你的大脑将会处理这些信息直到早上。让我们再学几个单词！";
+"evening_motivation_3" = "睡前10分钟的学习加速你的语言学习过程。";
+"evening_motivation_4" = "巧识你今天学习的内容！你可以在睡觉前做一个快速复习。";
+"evening_motivation_5" = "晚上学习语言能使你的大脑放松并帮助你更好睡眠。为什么不花几分钟呢？";
+
+// 语言和本地化
 "restart_required" = "您需要重新启动应用程序以更改语言。";
-"ok" = "确定";
-"show_all" = "显示全部";
-"videos" = "视频";
-"words" = "单词";
-"goals" = "目标";
-"total_goal" = "总目标：%d";
-"watched_video" = "已观看视频：%d";
-"memorized_word" = "已记忆单词：%d";
-"no_word_found" = "未找到单词";
 "language_changed" = "语言已成功更改。";

@@ -1,68 +1,114 @@
+// Navigation Générale et Boutons
 "videos_loading" = "Chargement des vidéos...";
 "tab_videos" = "Vidéos";
 "tab_words" = "Mots";
 "tab_goals" = "Objectifs";
 "show_all" = "Tout afficher";
+"videos" = "Vidéos";
+"words" = "Mots";
+"goals" = "Objectifs";
 "hide_watched" = "Masquer vus";
 "hide_completed" = "Masquer terminés";
 "done" = "Terminé";
 "cancel" = "Annuler";
 "add_goal" = "Ajouter un objectif";
-"hide_completed" = "Masquer terminés";
-"cancel" = "Annuler";
-"add_goal" = "Ajouter un objectif";
+"delete_goal" = "Supprimer l'objectif";
+"delete_goal_confirm" = "Êtes-vous sûr de vouloir supprimer cet objectif ?";
+"confirm_delete" = "Oui, supprimer";
+"ok" = "OK";
+
+// Objectifs et Calendrier
 "calendar" = "Calendrier";
-"no_goal_added" = "Aucun objectif ajouté pour l'instant.";
-"all_goals_completed" = "Tous les objectifs sont atteints !";
-"motivation_message" = "Le chemin vers le succès commence par se fixer des objectifs !";
-"see_other_goals" = "Appuyez sur 'Tout afficher' pour voir d'autres objectifs.";
 "daily_stats" = "Statistiques quotidiennes";
-"create_new_goal" = "Créer un nouvel objectif";
-"track_progress" = "Suivez vos progrès en fixant des objectifs";
-"goal_type" = "Type d'objectif";
+"select_date" = "Sélectionner la date";
 "video_watching" = "Regarder des vidéos";
 "word_memorization" = "Mémorisation de mots";
-"goal_count" = "Nombre d'objectifs";
-"goal_period" = "Période de l'objectif";
-"daily" = "Quotidien";
-"weekly" = "Hebdomadaire";
-"monthly" = "Mensuel";
 "deadline" = "Date limite : %@";
 "goal" = "Objectif : %d";
 "progress" = "Progression : %d%%";
 "watched" = "Vu : %d";
 "memorized" = "Mémorisé : %d";
 "remaining" = "Restant : %d";
+"remaining_count" = "Restant : %d / %d";
+"no_goal_added" = "Aucun objectif ajouté pour l'instant.";
+"all_goals_completed" = "Tous les objectifs sont atteints !";
+"motivation_message" = "Le chemin vers le succès commence par se fixer des objectifs !";
+"see_other_goals" = "Appuyez sur 'Tout afficher' pour voir d'autres objectifs.";
+"create_new_goal" = "Créer un nouvel objectif";
+"track_progress" = "Suivez vos progrès en fixant des objectifs";
+"goal_type" = "Type d'objectif";
+"goal_count" = "Nombre d'objectifs";
+"goal_period" = "Période de l'objectif";
+"daily" = "Quotidien";
+"weekly" = "Hebdomadaire";
+"monthly" = "Mensuel";
+"goal_plan" = "Suivez vos progrès quotidiens, hebdomadaires ou mensuels";
 "video_goal" = "Objectif de regarder %d vidéos";
 "word_goal" = "Objectif de mémoriser %d mots";
 "congrats_video_goal" = "Félicitations ! Vous avez atteint l'objectif de regarder %d vidéos ! 🎉";
 "congrats_word_goal" = "Félicitations ! Vous avez atteint l'objectif de mémoriser %d mots ! 🎉";
 "goal_reached" = "Objectif atteint !";
 "warning" = "Avertissement";
+"error" = "Erreur";
+"completion_title" = "Félicitations ! 🎉";
+"completion_message" = "Vous avez mémorisé tous les mots !";
+"attention" = "Attention";
+
+// Mémorisation de Mots et Cartes
 "review_mode" = "Mode de révision";
 "restart" = "Recommencer";
 "close" = "Fermer";
 "total_memorized" = "Total mémorisé : %d";
+"total_goal" = "Objectifs totaux : %d";
+"watched_video" = "Vidéos regardées : %d";
+"memorized_word" = "Mots mémorisés : %d";
 "no_memorized_word" = "Aucun mot mémorisé pour l'instant";
+"no_word_found" = "Aucun mot trouvé";
 "memorize_info" = "Pour mémoriser des mots, cliquez sur le bouton 'Cartes de mots' lors du visionnage d'une vidéo et étudiez les mots.";
 "study_words" = "Étudier les mots";
 "delete_word" = "Supprimer le mot";
 "delete_word_confirm" = "Êtes-vous sûr de vouloir supprimer ce mot ?";
 "delete" = "Supprimer";
+"word_cards" = "Cartes de mots";
+"word_cards_loading_title" = "Information";
+"word_cards_loading_message" = "Les cartes de mots ne peuvent pas être chargées pour le moment. Notre contenu sera disponible dans toutes les langues bientôt. Merci de votre compréhension.";
+
+// Visionnage de Vidéos
 "video_title" = "%d.Vidéo";
 "not_watched" = "Non vu";
 "watched_status" = "Vu";
-"word_cards" = "Cartes de mots";
 "all_videos_watched" = "Toutes les vidéos vues";
 "show_all_videos_info" = "Appuyez sur 'Tout afficher' pour voir plus de vidéos";
-"select_date" = "Sélectionner la date";
-"attention" = "Attention";
+
+// Titres de Notifications
+"morning_notification_title" = "Bonjour ! ☀️";
+"noon_notification_title" = "Pause déjeuner 🕐";
+"evening_notification_title" = "Bonsoir ! 🌙";
+"motivation_time" = "C'est l'heure de la motivation ! 💪";
+"thanks" = "Merci !";
+"default_motivation" = "Continuez à apprendre des langues ! La constance mène au succès.";
+
+// Messages de Motivation du Matin
+"morning_motivation_1" = "Commencer la journée en apprenant une langue est un excellent pas ! Essayons d'apprendre trois nouveaux mots aujourd'hui.";
+"morning_motivation_2" = "Bonjour ! Consacrer un peu de temps à l'apprentissage d'une langue chaque jour mène à de grandes améliorations.";
+"morning_motivation_3" = "Ajouter 10 minutes d'étude linguistique à votre routine matinale active votre cerveau !";
+"morning_motivation_4" = "Faites de l'apprentissage des langues une priorité en débutant une nouvelle journée. Le secret est dans la pratique régulière !";
+"morning_motivation_5" = "Apprenez une langue avec l'énergie du jour ! Même 5 minutes font une différence aujourd'hui.";
+
+// Messages de Motivation du Midi
+"noon_motivation_1" = "Pause déjeuner ? Et si vous étudiez rapidement quelques mots ?";
+"noon_motivation_2" = "Consacrez votre pause mentale du milieu de journée à l'apprentissage des langues ! Même 5 minutes sont importantes.";
+"noon_motivation_3" = "Combien de progrès avez-vous fait aujourd'hui ? Révisez rapidement quelques mots !";
+"noon_motivation_4" = "L'heure du déjeuner est un moment de productivité ! Apprendre quelques mots ajoute de l'énergie au reste de votre journée.";
+"noon_motivation_5" = "Pratiquer votre langue un peu chaque jour vous rend meilleur qu'hier.";
+
+// Messages de Motivation du Soir
+"evening_motivation_1" = "Terminer la journée en apprenant une langue vous aide à mieux commencer demain !";
+"evening_motivation_2" = "Votre cerveau consolidera ces informations jusqu'à demain matin. Étudions encore quelques mots !";
+"evening_motivation_3" = "Étudier pendant 10 minutes avant de dormir accélère le processus d'apprentissage des langues.";
+"evening_motivation_4" = "Renforcez ce que vous avez appris aujourd'hui ! Vous pouvez faire une révision rapide avant de vous coucher.";
+"evening_motivation_5" = "Apprendre une langue le soir détend votre esprit et vous aide à mieux dormir. Pourquoi ne pas y consacrer quelques minutes ?";
+
+// Langue et Localisation
 "restart_required" = "Vous devez redémarrer l'application pour changer la langue.";
-"ok" = "OK";
-"show_all" = "Tout afficher";
-"videos" = "Vidéos";
-"words" = "Mots";
-"goals" = "Objectifs";
-"total_goal" = "Objectifs totaux: %d";
-"watched_video" = "Vidéos regardées: %d";
-"memorized_word" = "Mots mémorisés: %d";
+"language_changed" = "Langue changée avec succès.";

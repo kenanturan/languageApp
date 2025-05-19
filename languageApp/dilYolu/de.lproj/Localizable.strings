@@ -1,65 +1,114 @@
+// Allgemeine Navigation und Schaltflächen
 "videos_loading" = "Videos werden geladen...";
 "tab_videos" = "Videos";
 "tab_words" = "Wörter";
 "tab_goals" = "Ziele";
 "show_all" = "Alle anzeigen";
+"videos" = "Videos";
+"words" = "Wörter";
+"goals" = "Ziele";
 "hide_watched" = "Gesehene ausblenden";
 "hide_completed" = "Abgeschlossene ausblenden";
 "done" = "Fertig";
 "cancel" = "Abbrechen";
 "add_goal" = "Ziel hinzufügen";
+"delete_goal" = "Ziel löschen";
+"delete_goal_confirm" = "Sind Sie sicher, dass Sie dieses Ziel löschen möchten?";
+"confirm_delete" = "Ja, löschen";
+"ok" = "OK";
+
+// Ziele und Kalender
 "calendar" = "Kalender";
-"no_goal_added" = "Noch keine Ziele hinzugefügt.";
-"all_goals_completed" = "Alle Ziele erreicht!";
-"motivation_message" = "Der Weg zum Erfolg beginnt mit Zielsetzung!";
-"see_other_goals" = "Tippe auf 'Alle anzeigen', um weitere Ziele zu sehen.";
 "daily_stats" = "Tägliche Statistik";
-"create_new_goal" = "Neues Ziel erstellen";
-"track_progress" = "Verfolge deinen Fortschritt durch Ziele";
-"goal_type" = "Zieltyp";
+"select_date" = "Datum auswählen";
 "video_watching" = "Video ansehen";
 "word_memorization" = "Wörter merken";
-"goal_count" = "Zielanzahl";
-"goal_period" = "Zielzeitraum";
-"daily" = "Täglich";
-"weekly" = "Wöchentlich";
-"monthly" = "Monatlich";
 "deadline" = "Frist: %@";
 "goal" = "Ziel: %d";
 "progress" = "Fortschritt: %d%%";
 "watched" = "Gesehen: %d";
 "memorized" = "Gemerkt: %d";
 "remaining" = "Verbleibend: %d";
+"remaining_count" = "Verbleibend: %d / %d";
+"no_goal_added" = "Noch keine Ziele hinzugefügt.";
+"all_goals_completed" = "Alle Ziele erreicht!";
+"motivation_message" = "Der Weg zum Erfolg beginnt mit Zielsetzung!";
+"see_other_goals" = "Tippe auf 'Alle anzeigen', um weitere Ziele zu sehen.";
+"create_new_goal" = "Neues Ziel erstellen";
+"track_progress" = "Verfolge deinen Fortschritt durch Ziele";
+"goal_type" = "Zieltyp";
+"goal_count" = "Zielanzahl";
+"goal_period" = "Zielzeitraum";
+"daily" = "Täglich";
+"weekly" = "Wöchentlich";
+"monthly" = "Monatlich";
+"goal_plan" = "Verfolge deinen Fortschritt täglich, wöchentlich oder monatlich";
 "video_goal" = "%d Video-Ziel";
 "word_goal" = "%d Wort-Ziel";
 "congrats_video_goal" = "Glückwunsch! Du hast das Ziel erreicht, %d Videos anzusehen! 🎉";
 "congrats_word_goal" = "Glückwunsch! Du hast das Ziel erreicht, %d Wörter zu merken! 🎉";
 "goal_reached" = "Ziel erreicht!";
 "warning" = "Warnung";
+"error" = "Fehler";
+"completion_title" = "Glückwunsch! 🎉";
+"completion_message" = "Du hast alle Wörter gelernt!";
+"attention" = "Achtung";
+
+// Wörter lernen und Karteikarten
 "review_mode" = "Wiederholungsmodus";
 "restart" = "Neu starten";
 "close" = "Schließen";
 "total_memorized" = "Insgesamt gemerkt: %d";
+"total_goal" = "Gesamtziele: %d";
+"watched_video" = "Gesehene Videos: %d";
+"memorized_word" = "Gelernte Wörter: %d";
 "no_memorized_word" = "Noch keine Wörter gemerkt";
+"no_word_found" = "Keine Wörter gefunden";
 "memorize_info" = "Um Wörter zu merken, klicke während des Videos auf 'Wortkarten' und lerne die Wörter.";
 "study_words" = "Wörter lernen";
 "delete_word" = "Wort löschen";
 "delete_word_confirm" = "Möchtest du dieses Wort wirklich löschen?";
 "delete" = "Löschen";
+"word_cards" = "Wortkarten";
+"word_cards_loading_title" = "Information";
+"word_cards_loading_message" = "Wortkarten können derzeit nicht geladen werden. Unsere Inhalte werden bald in allen Sprachen verfügbar sein. Vielen Dank für Ihr Verständnis.";
+
+// Videos ansehen
 "video_title" = "%d.Video";
 "not_watched" = "Nicht gesehen";
 "watched_status" = "Gesehen";
-"word_cards" = "Wortkarten";
 "all_videos_watched" = "Alle Videos gesehen";
 "show_all_videos_info" = "Tippe auf 'Alle anzeigen', um mehr Videos zu sehen";
-"select_date" = "Datum auswählen";
-"attention" = "Achtung";
+
+// Benachrichtigungstitel
+"morning_notification_title" = "Guten Morgen! ☀️";
+"noon_notification_title" = "Mittagspause 🕐";
+"evening_notification_title" = "Guten Abend! 🌙";
+"motivation_time" = "Zeit für Motivation! 💪";
+"thanks" = "Danke!";
+"default_motivation" = "Bleib beim Sprachenlernen! Konstanz bringt Erfolg.";
+
+// Morgen-Motivationsnachrichten
+"morning_motivation_1" = "Den Tag mit dem Lernen einer Sprache zu beginnen ist ein toller Schritt! Versuchen wir heute, drei neue Wörter zu lernen.";
+"morning_motivation_2" = "Guten Morgen! Täglich etwas Zeit für das Sprachenlernen aufzuwenden führt zu großen Verbesserungen.";
+"morning_motivation_3" = "10 Minuten Sprachstudium in deine Morgenroutine einzubauen aktiviert dein Gehirn!";
+"morning_motivation_4" = "Mache das Sprachenlernen zur Priorität, wenn du einen neuen Tag beginnst. Das Geheimnis ist regelmäßiges Üben!";
+"morning_motivation_5" = "Lerne eine Sprache mit der Energie des Tages! Selbst 5 Minuten machen heute einen Unterschied.";
+
+// Mittags-Motivationsnachrichten
+"noon_motivation_1" = "Mittagspause? Wie wäre es mit dem schnellen Lernen einiger Wörter?";
+"noon_motivation_2" = "Widme deine Gehirnpause in der Mitte des Tages dem Sprachenlernen! Selbst 5 Minuten sind wichtig.";
+"noon_motivation_3" = "Wie viel Fortschritt hast du heute gemacht? Wiederhole schnell ein paar Wörter!";
+"noon_motivation_4" = "Mittagspause ist Produktivitätszeit! Ein paar Wörter zu lernen gibt dir Energie für den Rest des Tages.";
+"noon_motivation_5" = "Täglich ein wenig deine Sprache zu üben macht dich besser als gestern.";
+
+// Abend-Motivationsnachrichten
+"evening_motivation_1" = "Den Tag mit Sprachenlernen zu beenden hilft dir, besser auf morgen vorbereitet zu sein!";
+"evening_motivation_2" = "Dein Gehirn wird diese Informationen bis morgen früh festigen. Lass uns noch ein paar Wörter lernen!";
+"evening_motivation_3" = "10 Minuten lernen vor dem Schlafengehen beschleunigt den Sprachlernprozess.";
+"evening_motivation_4" = "Festige, was du heute gelernt hast! Du kannst vor dem Schlafengehen eine kurze Wiederholung machen.";
+"evening_motivation_5" = "Abends eine Sprache zu lernen entspannt deinen Geist und hilft dir, besser zu schlafen. Wie wäre es mit ein paar Minuten?";
+
+// Sprache und Lokalisierung
 "restart_required" = "Sie müssen die App neu starten, um die Sprache zu ändern.";
-"ok" = "OK";
-"show_all" = "Alle anzeigen";
-"videos" = "Videos";
-"words" = "Wörter";
-"goals" = "Ziele";
-"total_goal" = "Gesamtziele: %d";
-"watched_video" = "Gesehene Videos: %d";
-"memorized_word" = "Gelernte Wörter: %d";
+"language_changed" = "Sprache erfolgreich geändert.";

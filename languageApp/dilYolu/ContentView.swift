@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
 struct ContentView: View {
     @State private var selectedTab = 0
@@ -34,6 +35,12 @@ struct ContentView: View {
                         Label(NSLocalizedString("tab_goals", comment: "Goals tab"), systemImage: "target")
                     }
                     .tag(2)
+                
+                ExercisesView()
+                    .tabItem {
+                        Label("Alıştırmalar", systemImage: "figure.run")
+                    }
+                    .tag(3)
             }
             .accentColor(.blue) // Active tab color
             .celebration() // Add celebration animation to the entire app
