@@ -3,11 +3,18 @@
 "tab_videos" = "Vídeos";
 "tab_words" = "Palavras";
 "tab_goals" = "Metas";
+"tab_exercises" = "Exercícios";
 "show_all" = "Mostrar tudo";
 "videos" = "Vídeos";
 "words" = "Palavras";
 "goals" = "Metas";
 "hide_watched" = "Ocultar assistidos";
+
+// Vista de Exercícios
+"no_words_memorized" = "Nenhuma palavra memorizada ainda";
+"memorize_words_first" = "Assista vídeos e memorize palavras primeiro para criar exercícios.";
+"generate_text" = "Gerar texto";
+"turkish_translation" = "Tradução para turco:";
 "hide_completed" = "Ocultar concluídos";
 "done" = "Concluído";
 "cancel" = "Cancelar";

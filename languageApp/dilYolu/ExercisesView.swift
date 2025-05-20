@@ -25,9 +25,9 @@ struct ExercisesView: View {
                             Image(systemName: "doc.text.magnifyingglass")
                                 .font(.system(size: 70))
                                 .foregroundColor(.gray.opacity(0.7))
-                            Text("Henüz Kelime Ezberlenemedi")
+                            Text(NSLocalizedString("no_words_memorized", comment: "No words memorized yet"))
                                 .font(.title2.bold())
-                            Text("Alıştırma oluşturmak için önce video izleyerek kelime ezberleyin.")
+                            Text(NSLocalizedString("memorize_words_first", comment: "Instruction to memorize words first"))
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
@@ -43,7 +43,7 @@ struct ExercisesView: View {
                                     .font(.system(size: 14))
                                     .foregroundColor(.yellow)
                                 
-                                Text("\(rememberedWords.count) kelime ile alıştırma yapabilirsiniz")
+                                Text(String(format: NSLocalizedString("can_practice_with_words", comment: "Number of words available for practice"), rememberedWords.count))
                                     .font(.system(size: 14, weight: .medium))
                             }
                             .padding(.vertical, 8)
@@ -67,7 +67,7 @@ struct ExercisesView: View {
                                 HStack(spacing: 12) {
                                     Image(systemName: "text.badge.plus")
                                         .font(.system(size: 16, weight: .semibold))
-                                    Text("Metin Oluştur")
+                                    Text(NSLocalizedString("generate_text", comment: "Generate text button"))
                                         .font(.system(size: 16, weight: .semibold))
                                 }
                                 .padding(.vertical, 14)
@@ -88,13 +88,13 @@ struct ExercisesView: View {
                             .padding(.bottom, 10)
                             
                             if isLoading {
-                                ProgressView("Metin oluşturuluyor...")
+                                ProgressView(NSLocalizedString("generating_text", comment: "Text generation progress"))
                                     .padding()
                             }
                             
                             if !generatedText.isEmpty {
                                 VStack(alignment: .leading, spacing: 12) {
-                                    Text("Alıştırma Metni:")
+                                    Text(NSLocalizedString("exercise_text", comment: "Exercise text title"))
                                         .font(.headline)
                                     
                                     Text(generatedText)
@@ -123,7 +123,7 @@ struct ExercisesView: View {
                                             HStack(spacing: 10) {
                                                 Image(systemName: showTranslation ? "eye.slash" : "eye")
                                                     .font(.system(size: 15, weight: .medium))
-                                                Text(showTranslation ? "Çeviriyi Gizle" : "Türkçe Çevirisini Göster")
+                                                Text(showTranslation ? NSLocalizedString("hide_translation", comment: "Hide translation button") : NSLocalizedString("show_turkish_translation", comment: "Show Turkish translation button"))
                                                     .font(.system(size: 15, weight: .medium))
                                             }
                                             .padding(.vertical, 12)
@@ -150,7 +150,7 @@ struct ExercisesView: View {
                                     
                                     if showTranslation && !translatedText.isEmpty {
                                         VStack(alignment: .leading, spacing: 8) {
-                                            Text("Türkçe Çevirisi:")
+                                            Text(NSLocalizedString("turkish_translation", comment: "Turkish translation label"))
                                                 .font(.headline)
                                                 .padding(.top, 8)
                                             

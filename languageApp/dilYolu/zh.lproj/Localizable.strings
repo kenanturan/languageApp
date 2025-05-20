@@ -3,11 +3,23 @@
 "tab_videos" = "视频";
 "tab_words" = "单词";
 "tab_goals" = "目标";
+"tab_exercises" = "练习";
 "show_all" = "显示全部";
 "videos" = "视频";
 "words" = "单词";
 "goals" = "目标";
 "hide_watched" = "隐藏已观看";
+
+// 练习视图
+"can_practice_with_words" = "您可以用 %d 个单词进行练习";
+"generating_text" = "正在生成文本...";
+"exercise_text" = "练习文本：";
+"hide_translation" = "隐藏翻译";
+"show_turkish_translation" = "显示土耳其语翻译";
+"no_words_memorized" = "尚未记忆任何单词";
+"memorize_words_first" = "请先观看视频并记忆单词，然后再创建练习。";
+"generate_text" = "生成文本";
+"turkish_translation" = "土耳其语翻译：";
 "hide_completed" = "隐藏已完成";
 "done" = "完成";
 "cancel" = "取消";

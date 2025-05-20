@@ -1,7 +1,7 @@
 import Foundation
 
 enum AppLanguage: String, CaseIterable, Identifiable {
-    case arabic = "ar"
+    case turkish = "tr"
     case german = "de"
     case english = "en"
     case spanish = "es"
@@ -9,7 +9,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     case italian = "it"
     case portuguese = "pt"
     case russian = "ru"
-    case turkish = "tr"
+    case arabic = "ar"
     case chinese = "zh"
 
     var nativeName: String {
@@ -57,13 +57,20 @@ class LanguageManager {
     
     func setLanguage(_ language: AppLanguage) {
         UserDefaults.standard.set(language.rawValue, forKey: "AppLanguage")
-        
-        // Dil değişikliğini anında uygulamak için AppleLanguages ayarını da değiştir
         UserDefaults.standard.set([language.rawValue], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
         
-        // Bundle'ı yeniden yükle - bu doğru dilde Localizable.strings'i kullanacak
-        let _ = Bundle.main.localizedString(forKey: "dummy", value: nil, table: nil)
+        // Bundle'ı zorla yeniden yükle
+        if let languageBundlePath = Bundle.main.path(forResource: language.rawValue, ofType: "lproj"),
+           let languageBundle = Bundle(path: languageBundlePath) {
+            // Tüm string'leri yeniden yükle
+            Bundle.main.localizations.forEach { _ in
+                let _ = languageBundle.localizedString(forKey: "dummy", value: nil, table: nil)
+            }
+        }
+        
+        // Notification gönder
+        NotificationCenter.default.post(name: NSNotification.Name("LanguageChanged"), object: nil)
     }
     
     func getStoredLanguage() -> AppLanguage {

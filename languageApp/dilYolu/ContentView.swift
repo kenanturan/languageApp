@@ -12,6 +12,7 @@ import CoreData
 struct ContentView: View {
     @State private var selectedTab = 0
     @StateObject private var languageManager = AppLanguageManager.shared
+    @State private var languageUpdateTrigger = false  // Dil değişikliğini tetiklemek için
     
     var body: some View {
         VStack(spacing: 0) {
@@ -38,12 +39,16 @@ struct ContentView: View {
                 
                 ExercisesView()
                     .tabItem {
-                        Label("Alıştırmalar", systemImage: "figure.run")
+                        Label(NSLocalizedString("tab_exercises", comment: "Exercises tab"), systemImage: "figure.run")
                     }
                     .tag(3)
             }
             .accentColor(.blue) // Active tab color
             .celebration() // Add celebration animation to the entire app
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("LanguageChanged"))) { _ in
+            languageUpdateTrigger.toggle()  // View'u yeniden render et
+        }
             .onAppear {
                 // Improve TabBar appearance
                 let appearance = UITabBarAppearance()
@@ -70,7 +75,6 @@ struct ContentView: View {
             }
         }
     }
-}
 
 #Preview {
     ContentView()

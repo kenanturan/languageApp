@@ -1,13 +1,30 @@
 // General Navigation and Buttons
+"tab_exercises" = "Exercises";
+"tab_videos" = "Videos";
+"tab_words" = "Words";
+"tab_goals" = "Goals";
+
 "videos_loading" = "Videos are loading...";
 "tab_videos" = "Videos";
 "tab_words" = "Words";
 "tab_goals" = "Goals";
+"tab_exercises" = "Exercises";
 "show_all" = "Show All";
 "videos" = "Videos";
 "words" = "Words";
 "goals" = "Goals";
 "hide_watched" = "Hide Watched";
+
+// Exercise View
+"can_practice_with_words" = "You can practice with %d words";
+"generating_text" = "Generating text...";
+"exercise_text" = "Exercise Text:";
+"hide_translation" = "Hide Translation";
+"show_turkish_translation" = "Show Turkish Translation";
+"no_words_memorized" = "No Words Memorized Yet";
+"memorize_words_first" = "Watch videos and memorize words first to create exercises.";
+"generate_text" = "Generate Text";
+"turkish_translation" = "Turkish Translation:";
 "hide_completed" = "Hide Completed";
 "done" = "Done";
 "cancel" = "Cancel";

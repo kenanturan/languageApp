@@ -1,13 +1,30 @@
 // التصفح العام والأزرار
+"tab_exercises" = "تمارين";
+"tab_videos" = "فيديوهات";
+"tab_words" = "كلمات";
+"tab_goals" = "أهداف";
+
 "videos_loading" = "جاري تحميل الفيديوهات...";
 "tab_videos" = "فيديوهات";
 "tab_words" = "كلمات";
 "tab_goals" = "أهداف";
+"tab_exercises" = "تمارين";
 "show_all" = "عرض الكل";
 "videos" = "فيديوهات";
 "words" = "كلمات";
 "goals" = "أهداف";
 "hide_watched" = "إخفاء المشاهد";
+
+// عرض التمارين
+"can_practice_with_words" = "يمكنك التمرن بـ %d كلمة";
+"generating_text" = "جاري إنشاء النص...";
+"exercise_text" = "نص التمرين:";
+"hide_translation" = "إخفاء الترجمة";
+"show_turkish_translation" = "عرض الترجمة التركية";
+"no_words_memorized" = "لم يتم حفظ أي كلمات بعد";
+"memorize_words_first" = "شاهد الفيديوهات واحفظ الكلمات أولاً لإنشاء التمارين.";
+"generate_text" = "إنشاء نص";
+"turkish_translation" = "الترجمة التركية:";
 "hide_completed" = "إخفاء المكتمل";
 "done" = "تم";
 "cancel" = "إلغاء";

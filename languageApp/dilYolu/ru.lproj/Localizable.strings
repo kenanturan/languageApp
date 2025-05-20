@@ -3,11 +3,18 @@
 "tab_videos" = "Видео";
 "tab_words" = "Слова";
 "tab_goals" = "Цели";
+"tab_exercises" = "Упражнения";
 "show_all" = "Показать все";
 "videos" = "Видео";
 "words" = "Слова";
 "goals" = "Цели";
 "hide_watched" = "Скрыть просмотренные";
+
+// Вид упражнений
+"no_words_memorized" = "Пока нет запомненных слов";
+"memorize_words_first" = "Сначала посмотрите видео и запомните слова, чтобы создать упражнения.";
+"generate_text" = "Создать текст";
+"turkish_translation" = "Перевод на турецкий:";
 "hide_completed" = "Скрыть завершённые";
 "done" = "Готово";
 "cancel" = "Отмена";

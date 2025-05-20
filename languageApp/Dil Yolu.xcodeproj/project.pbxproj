@@ -27,6 +27,7 @@
 		4923D8CE2DB78A4D00EC3AED /* Dil Yolu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dil Yolu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4923D8DE2DB78A4E00EC3AED /* Dil YoluTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dil YoluTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4923D8E82DB78A4E00EC3AED /* Dil YoluUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dil YoluUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A98CF7DF2DDC56D200F37711 /* Dil-Yolu-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Dil-Yolu-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -99,6 +100,7 @@
 		4923D8C52DB78A4D00EC3AED = {
 			isa = PBXGroup;
 			children = (
+				A98CF7DF2DDC56D200F37711 /* Dil-Yolu-Info.plist */,
 				4923D8D02DB78A4D00EC3AED /* dilYolu */,
 				4923D8E12DB78A4E00EC3AED /* languageAppTests */,
 				4923D8EB2DB78A4E00EC3AED /* languageAppUITests */,
@@ -434,6 +436,7 @@
 				DEVELOPMENT_TEAM = 5CQ54M6FL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dil-Yolu-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -468,6 +471,7 @@
 				DEVELOPMENT_TEAM = 5CQ54M6FL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dil-Yolu-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
