@@ -200,7 +200,7 @@ class VideoListViewController: UIViewController {
         }
         
         setupUI()
-        loadVideosFromCache()
+        loadVideosFromCacheOrAPI()
         updateDisplayedVideos()
         NotificationCenter.default.addObserver(self, selector: #selector(handleVideoListUpdated), name: Notification.Name("VideoListUpdated"), object: nil)
     }
@@ -210,16 +210,7 @@ class VideoListViewController: UIViewController {
     }
     
     // VideoListViewController için videoları önbellekten yükleyen metot
-    private func loadVideosFromCache() {
-        // Önbellekten videoları yükle
-        if let cachedVideos = VideoCacheManager.shared.getCachedVideos(), !cachedVideos.isEmpty {
-            self.videos = cachedVideos
-            self.updateDisplayedVideos()
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
+    // Önbellekleme kaldırıldı
     
     // Video listesi güncellendiğinde çağrılan metot
     @objc private func handleVideoListUpdated() {
@@ -312,7 +303,7 @@ class VideoListViewController: UIViewController {
                     
                     // Normal UI'ı göster
                     self.setupUI()
-                    self.loadVideosFromCache()
+                    self.loadVideosFromCacheOrAPI()
                     self.updateDisplayedVideos()
                     self.collectionView.isHidden = false
                     self.pageControl.isHidden = false
@@ -362,13 +353,11 @@ class VideoListViewController: UIViewController {
                               let date2 = ISO8601DateFormatter().date(from: item2.snippet.publishedAt) else {
                             return false
                         }
+                        // En eski videoları başa al
                         return date1 < date2
                     }
                     
                     print("[VideoList] Videolar eskiden yeniye doğru sıralandı. Toplam: \(sortedVideos.count)")
-                    
-                    // Sıralanmış videoları önbelleğe al
-                    VideoCacheManager.shared.cacheVideos(sortedVideos)
                     
                     // Ana thread'de tamamlandı bilgisini gönder
                     DispatchQueue.main.async {
@@ -832,34 +821,13 @@ class VideoListViewController: UIViewController {
         segmentedContainer.isUserInteractionEnabled = true
     }
     
-    /// Önbellekten videoları yükler veya API'den çeker
+    /// Her zaman API'den videoları çeker
     private func loadVideosFromCacheOrAPI() {
         activityIndicator.startAnimating()
         collectionView.isHidden = true
         
-        // Önbellekte video olup olmadığını kontrol et
-        if VideoCacheManager.shared.hasCachedVideos(), let cachedVideos = VideoCacheManager.shared.getCachedVideos() {
-            // Önbellekteki videoları kullan
-            self.videos = cachedVideos
-            self.videos.sort { $0.snippet.publishedAt < $1.snippet.publishedAt }
-            self.updateDisplayedVideos()
-            self.pageControl.numberOfPages = Int(ceil(Double(self.videos.count) / Double(self.videosPerPage)))
-            self.collectionView.reloadData()
-            self.activityIndicator.stopAnimating()
-            self.collectionView.isHidden = false
-            
-            print("[VideoList] Önbellekten \(cachedVideos.count) video yüklendi")
-            
-            // Arka planda API'den taze veriler için kontrol et (opsiyonel)
-            // Bu, uygulama performansını etkilemeden yapılabilir
-            // Kullanıcı önbellekteki videoları görüntülerken
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                self?.checkForUpdatesInBackground()
-            }
-        } else {
-            // Önbellekte geçerli video yoksa, API'den çek
-            fetchChannelUploadsPlaylistId()
-        }
+        // Doğrudan API'den çek
+        fetchChannelUploadsPlaylistId()
     }
     
     /// Arka planda güncellemeleri kontrol et (kullanıcı deneyimini etkilemez)
@@ -1036,8 +1004,8 @@ class VideoListViewController: UIViewController {
     }
     
     private func fetchVideos(playlistId: String, pageToken: String? = nil, isBackgroundUpdate: Bool = false, fetchedVideos: [PlaylistItem] = []) {
-        // API limit tasarrufu: Başlangıçta sadece görüntülenecek kadar video çek, kullanıcı sayfa değiştirdiğinde daha fazlasını yükle
-        let maxResults = pageToken == nil ? videosPerPage : 50 // İlk istekte sadece bir sayfa (8 video), sonraki sayfalarda daha fazla
+        // Her zaman maksimum sayıda video çek
+        let maxResults = 50 // Her istekte 50 video çek
         
         var urlString = "\(Config.baseUrl)/playlistItems?key=\(Config.apiKey)&playlistId=\(playlistId)&part=snippet&maxResults=\(maxResults)"
         if let pageToken = pageToken {
@@ -1060,6 +1028,22 @@ class VideoListViewController: UIViewController {
         
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let self = self else { return }
+            
+            // Önce internet bağlantısı hatasını kontrol et
+            if let error = error as NSError?, error.domain == NSURLErrorDomain {
+                switch error.code {
+                case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
+                    DispatchQueue.main.async {
+                        if !isBackgroundUpdate {
+                            self.showError(NSLocalizedString("no_internet_connection", comment: "No internet connection"))
+                        }
+                    }
+                    return
+                default:
+                    break
+                }
+            }
+            
             // HTTP hata kodlarını kontrol et
             if let httpResponse = response as? HTTPURLResponse {
                 print("[VideoList] YouTube API yanıt kodu: \(httpResponse.statusCode)")
@@ -1081,7 +1065,7 @@ class VideoListViewController: UIViewController {
                             // Yenileme başarısız, kullanıcıya hata göster
                             DispatchQueue.main.async {
                                 if !isBackgroundUpdate {
-                                    self.showError("API anahtarı güncelleme başarısız oldu.")
+                                    self.showError(NSLocalizedString("api_key_update_failed", comment: "API key update failed"))
                                 }
                             }
                         }
@@ -1093,7 +1077,7 @@ class VideoListViewController: UIViewController {
             guard let data = data else {
                 DispatchQueue.main.async {
                     if !isBackgroundUpdate {
-                        self.showError("No data received")
+                        self.showError(NSLocalizedString("no_data_received", comment: "No data received"))
                     }
                 }
                 return
@@ -1114,30 +1098,33 @@ class VideoListViewController: UIViewController {
                 if let nextPageToken = response.nextPageToken, (!hasEnoughVideosForFirstLoad || isBackgroundUpdate) {
                     self.fetchVideos(playlistId: playlistId, pageToken: nextPageToken, isBackgroundUpdate: isBackgroundUpdate, fetchedVideos: allFetchedVideos)
                 } else {
-                    // Tüm videolar çekildi, şimdi tarihe göre sırala ve UI'ı güncelle
-                    DispatchQueue.main.async {
-                        if !isBackgroundUpdate {
-                            // Normal yükleme - UI'ı güncelle
-                            self.videos = allFetchedVideos
-                            self.videos.sort { $0.snippet.publishedAt < $1.snippet.publishedAt }
-                            self.updateDisplayedVideos()
-                            self.pageControl.numberOfPages = Int(ceil(Double(self.videos.count) / Double(self.videosPerPage)))
-                            self.collectionView.reloadData()
-                            self.activityIndicator.stopAnimating()
-                            self.collectionView.isHidden = false
-                        } else {
-                            // Arka plan güncellemesi - önbelleği güncelle ama UI'ı değiştirme
-                            print("[VideoList] Arka plan güncellemesi tamamlandı: \(allFetchedVideos.count) video alındı")
+                    // Tüm videoları çekmek için bir sonraki sayfaya geç
+                    if let nextPageToken = response.nextPageToken {
+                        self.fetchVideos(playlistId: playlistId, pageToken: nextPageToken, isBackgroundUpdate: isBackgroundUpdate, fetchedVideos: allFetchedVideos)
+                    } else {
+                        // Tüm videolar çekildi, şimdi tarihe göre sırala ve UI'ı güncelle
+                        DispatchQueue.main.async {
+                            if !isBackgroundUpdate {
+                                // Normal yükleme - UI'ı güncelle
+                                print("[VideoList] Toplam çekilen video sayısı: \(allFetchedVideos.count)")
+                                // En eski videoları başa al
+                                self.videos = allFetchedVideos.sorted { $0.snippet.publishedAt < $1.snippet.publishedAt }
+                                self.updateDisplayedVideos()
+                                self.pageControl.numberOfPages = Int(ceil(Double(self.videos.count) / Double(self.videosPerPage)))
+                                self.collectionView.reloadData()
+                                self.activityIndicator.stopAnimating()
+                                self.collectionView.isHidden = false
+                            } else {
+                                // Arka plan güncellemesi - önbelleği güncelle ama UI'ı değiştirme
+                                print("[VideoList] Arka plan güncellemesi tamamlandı: \(allFetchedVideos.count) video alındı")
+                            }
                         }
-                        
-                        // Her durumda önbelleğe alma
-                        VideoCacheManager.shared.cacheVideos(allFetchedVideos)
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
                     if !isBackgroundUpdate {
-                        self.showError("Failed to decode playlist data: \(error.localizedDescription)")
+                        self.showError(String(format: NSLocalizedString("playlist_decode_error", comment: "Failed to decode playlist data"), error.localizedDescription))
                     }
                 }
             }

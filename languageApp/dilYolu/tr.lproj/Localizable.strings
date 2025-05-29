@@ -18,6 +18,11 @@
 "confirm_delete" = "Evet, Sil";
 "ok" = "Tamam";
 
+// Boş durum mesajları
+"no_words_memorized" = "Henüz kelime ezberlemediniz";
+"memorize_words_first" = "Alıştırma oluşturmak için önce videoları izleyip kelimeleri ezberleyin.";
+
+
 // Hedefler ve Takvim
 "calendar" = "Takvim";
 "daily_stats" = "Günlük İstatistikler";
@@ -34,6 +39,14 @@
 "no_goal_added" = "Henüz hedef eklenmedi.";
 "all_goals_completed" = "Tüm hedefler tamamlandı!";
 "motivation_message" = "Başarıya giden yol hedefler belirlemekle başlar!";
+
+// Hata mesajları
+"warning" = "Uyarı";
+"api_key_update_failed" = "API anahtarı güncelleme başarısız oldu.";
+"no_data_received" = "Video verileri alınamadı.";
+"invalid_url_config" = "Geçersiz URL yapılandırması.";
+"playlist_decode_error" = "Video listesi yüklenirken bir hata oluştu: %@";
+"no_internet_connection" = "İnternet bağlantısı yok. Lütfen bağlantınızı kontrol edip tekrar deneyin.";
 "see_other_goals" = "Diğer hedefleri görmek için 'Hepsini Göster' butonuna dokunabilirsiniz.";
 "create_new_goal" = "Yeni Hedef Oluştur";
 "track_progress" = "Hedefler belirleyerek ilerlemenizi takip edin";
